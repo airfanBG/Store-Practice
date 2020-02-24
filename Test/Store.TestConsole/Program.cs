@@ -9,7 +9,7 @@ namespace Store.TestConsole
     {
         static void Main(string[] args)
         {
-          //Ado.net
+            //Ado.net
             //string connectionString = @"Server=;Database=;Trusted_Connection=True;";
             // string queryString = "select * from users";
             //string queryStringAdd = "insert into users (id,email, telephone,password,createdat) values(@id,@email, @telephone, @password, @createdat)";
@@ -49,18 +49,27 @@ namespace Store.TestConsole
             //        throw new ArgumentException(e.Message);
             //    }
             //}
-            //using (SqlConnection connection = new SqlConnection(connectionString))
-            //{
-            //    SqlCommand cmd = new SqlCommand(deleteString, connection);
-            //    cmd.Connection.Open();
-            //    cmd.Parameters.AddWithValue("id", "some id");
-            //    var res = cmd.ExecuteNonQuery();
-            //    Console.WriteLine(res);
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand(deleteString, connection);
+                cmd.Connection.Open();
+                cmd.Parameters.AddWithValue("id", "some id");
+                try
+                {
+                    var res = cmd.ExecuteNonQuery();
+                    Console.WriteLine(res);
+                
+                }
+                catch (Exception e)
+                {
+                    cmd.Transaction.Rollback();
+                    throw new Exception(e.Message);
+                }
 
-            //}
-        //You can use OleDb only in Entity Framework 6
+            }
+            //You can use OleDb only in Entity Framework 6
 
-        //EF core LINQ
+            //EF core LINQ
             //using (StoreDbContext db=new StoreDbContext())
             //{
             //    var res = db.Users.ToList();
