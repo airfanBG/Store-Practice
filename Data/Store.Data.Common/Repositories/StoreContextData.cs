@@ -1,0 +1,66 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Store.Models;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Store.Data.Common.Repositories
+{
+    public class StoreContextData : IStoreContextData
+    {
+        public DbContext Context { get; }
+     
+        private readonly Dictionary<Type, object> repositories;
+
+        public StoreContextData(DbContext context)
+        {
+            Context =context;
+           
+            repositories = new Dictionary<Type, object>();
+        }
+        public StoreContextData()
+        {
+            Context = new StoreDbContext();
+
+            repositories = new Dictionary<Type, object>();
+        }
+
+        public IRepository<Product> Products
+        {
+            get
+            {
+                return this.GetRepository<Product>();
+            }
+        }
+        public void Dispose()
+        {
+            this.Dispose(true);
+        }
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (this.Context != null)
+                {
+                    this.Context.Dispose();
+                }
+            }
+        }
+
+        public int SaveChanges()
+        {
+            return this.SaveChanges();
+        }
+        private IRepository<T> GetRepository<T>() where T : class
+        {
+            if (!this.repositories.ContainsKey(typeof(T)))
+            {
+                var type = typeof(Repository<T>);
+
+                this.repositories.Add(typeof(T), Activator.CreateInstance(type, this.Context));
+            }
+
+            return (IRepository<T>)this.repositories[typeof(T)];
+        }
+    }
+}

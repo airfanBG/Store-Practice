@@ -1,4 +1,5 @@
 ﻿using Store.Data;
+using Store.Data.Common.Repositories;
 using System;
 using System.Data.SqlClient;
 using System.Linq;
@@ -9,6 +10,12 @@ namespace Store.TestConsole
     {
         static void Main(string[] args)
         {
+            //Repository and Unit of Work
+
+            using (StoreContextData db = new StoreContextData(new StoreDbContext()))
+            {
+                var res = db.Products.AllAsNoTracking().ToList();
+            }
             //Ado.net
             //string connectionString = @"Server=;Database=;Trusted_Connection=True;";
             // string queryString = "select * from users";
