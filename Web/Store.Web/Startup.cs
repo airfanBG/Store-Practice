@@ -98,13 +98,13 @@ namespace Store.Web
             });
         }
         //Test map middleware
-        private void TestMap(IApplicationBuilder app)
-        {
+            //private void TestMap(IApplicationBuilder app)
+            //{
 
-            app.Run(async context =>
-            {
-                await context.Response.WriteAsync("Hello from TestMap.");
-            });
-        }
+            //    app.Run(async context =>
+            //    {
+            //        await context.Response.WriteAsync("Hello from TestMap.");
+            //    });
+            //}
     }
 }
