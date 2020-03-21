@@ -1,0 +1,7 @@
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=airfan\\SQLEXPRESS;Database=StoreDb;Trusted_Connection=True;"
+
+  }
+
+}

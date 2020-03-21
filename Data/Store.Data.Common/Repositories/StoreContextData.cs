@@ -6,6 +6,7 @@ using System.Text;
 
 namespace Store.Data.Common.Repositories
 {
+    //Unit of work class
     public class StoreContextData : IStoreContextData
     {
         public DbContext Context { get; }

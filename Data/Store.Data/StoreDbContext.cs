@@ -1,15 +1,19 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Store.Models;
 using Store.Models.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace Store.Data
 {
     public class StoreDbContext:DbContext
     {
+        protected IConfigurationRoot configuration;
         public StoreDbContext()
         {
 
@@ -34,8 +38,9 @@ namespace Store.Data
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=;Database=;Trusted_Connection=True;");
-
+            //optionsBuilder.UseSqlServer(@"Server=airfan\\SQLEXPRESS;Database=StoreDb;Trusted_Connection=True;");
+            configuration = new ConfigurationBuilder().SetBasePath(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)).AddJsonFile("appconfig.json").Build();
+            optionsBuilder.UseSqlServer(this.configuration.GetConnectionString("DefaultConnection"));
         }
 
         //Кодът по-долу го използвам за улеснение при промяна или добавяне на нов обект, като вземам от ChangeTracker-а всички ентитита, от някакъв тип, в случая от интерфейса IAuditInfo и според това каква операция се извършва върху тях променям или добавям датата. Така се избягва отново преизползването на код и добавянето на дати в случая при всяко създаване или модифициране на клас. Това е advance подход, но не е излишно да го знаете.
