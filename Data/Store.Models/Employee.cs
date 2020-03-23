@@ -9,6 +9,7 @@
         public string EmployeeNumber { get; set; }
         public Guid UserId { get; set; }
         public virtual User User { get; set; }
+        public string DepartmentId { get; set; }
         public virtual Department Department { get; set; }
     }
 }
