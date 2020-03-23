@@ -6,7 +6,7 @@
     using System.ComponentModel.DataAnnotations;
     using System.Text;
 
-    public class User : BaseModel<Guid>
+    public class User : BaseModel<string>
     {
         [Required(ErrorMessage = "Email is required")]
         [MinLength(5)]

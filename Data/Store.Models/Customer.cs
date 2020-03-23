@@ -6,7 +6,7 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    public class Customer:BaseModel<Guid>
+    public class Customer:BaseModel<string>
     {
         public Customer()
         {
@@ -16,7 +16,7 @@
         [MaxLength(10)]
         [Required(ErrorMessage = "Account number is required!")]
         public string AccountNumber { get; set; }
-        public Guid UserId { get; set; }
+        public string UserId { get; set; }
         public virtual User User { get; set; }
 
         public virtual ICollection<SaleOrder> SaleOrders { get; set; }

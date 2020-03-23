@@ -6,7 +6,7 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Text;
-    public class Product: BaseModel<Guid>
+    public class Product: BaseModel<string>
     {
         public Product()
         {

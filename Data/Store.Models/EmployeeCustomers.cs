@@ -3,7 +3,7 @@
     using Store.Models.BaseModels;
     using System;
 
-    public class EmployeeCustomers: BaseModel<Guid>
+    public class EmployeeCustomers: BaseModel<string>
     {
         public string EmployeeId { get; set; }
         public virtual Employee Employee { get; set; }

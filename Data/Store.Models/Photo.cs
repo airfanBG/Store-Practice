@@ -2,7 +2,7 @@
 {
     using Store.Models.BaseModels;
     using System;
-    public class Photo:BaseModel<Guid>
+    public class Photo:BaseModel<string>
     {
         public string PhotoDir { get; set; }
         public string ImageType { get; set; }

@@ -4,7 +4,7 @@
     using System;
     using System.ComponentModel.DataAnnotations;
 
-    public class SaleOrder : BaseModel<Guid>
+    public class SaleOrder : BaseModel<string>
     {
         [Required]
         public int Quantity { get; set; }
