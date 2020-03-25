@@ -135,7 +135,7 @@ namespace Store.Data
         public override int SaveChanges()
         {
 
-            return base.SaveChanges(true);
+            return SaveChanges(true);
 
         }
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
@@ -145,24 +145,22 @@ namespace Store.Data
         }
         private void ApplyEntityChanges()
         {
-            var entities = this.ChangeTracker.Entries().Where(x => (x.Entity is IAuditInfo) && (x.State == EntityState.Added || x.State == EntityState.Modified || x.State == EntityState.Deleted));
-            foreach (var entity in entities)
+            var entries = this.ChangeTracker.Entries().Where(x => (x.Entity is IAuditInfo) && (x.State == EntityState.Added || x.State == EntityState.Modified || x.State == EntityState.Deleted)).ToList();
+            foreach (var entry in entries)
             {
-                var addedEntityType = entity as IAuditInfo;
-                if (entity.State == EntityState.Added || entity.State == default)
+                var addedEntityType =(IAuditInfo) entry.Entity;
+                if (entry.State == EntityState.Added)
                 {
-
                     addedEntityType.CreatedAt = DateTime.Now;
                 }
-
-                if (entity.State == EntityState.Modified)
+                if (entry.State == EntityState.Modified)
                 {
-
+                    entry.State = EntityState.Modified;
                     addedEntityType.ModifiedAt = DateTime.Now;
                 }
-                if (entity.State == EntityState.Deleted)
+                if (entry.State == EntityState.Deleted)
                 {
-
+                    entry.State = EntityState.Unchanged;
                     addedEntityType.DeletedAt = DateTime.Now;
                 }
             }
