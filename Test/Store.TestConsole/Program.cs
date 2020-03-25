@@ -82,11 +82,13 @@ namespace Store.TestConsole
                 {
                     ProductName = x.ProductName,
                     Orders = x.SalesOrders.Select(x => x.DateOfSale).ToList()
-                }).OrderBy(x=>x.Orders.Count()).ToList();
+                }).OrderBy(x => x.Orders.Count()).ToList();
 
             }
 
+
             //end25.03.2020
+
             //Repository and Unit of Work
 
             //using (StoreContextData db = new StoreContextData(new StoreDbContext()))
