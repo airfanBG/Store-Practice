@@ -134,9 +134,7 @@ namespace Store.Data
         //Кодът по-долу го използвам за улеснение при промяна или добавяне на нов обект, като вземам от ChangeTracker-а всички ентитита, от някакъв тип, в случая от интерфейса IAuditInfo и според това каква операция се извършва върху тях променям или добавям датата. Така се избягва отново преизползването на код и добавянето на дати в случая при всяко създаване или модифициране на клас. Това е advance подход, но не е излишно да го знаете.
         public override int SaveChanges()
         {
-
             return SaveChanges(true);
-
         }
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
         {
@@ -148,7 +146,7 @@ namespace Store.Data
             var entries = this.ChangeTracker.Entries().Where(x => (x.Entity is IAuditInfo) && (x.State == EntityState.Added || x.State == EntityState.Modified || x.State == EntityState.Deleted)).ToList();
             foreach (var entry in entries)
             {
-                var addedEntityType =(IAuditInfo) entry.Entity;
+                var addedEntityType =(IAuditInfo)entry.Entity;
                 if (entry.State == EntityState.Added)
                 {
                     addedEntityType.CreatedAt = DateTime.Now;

@@ -76,16 +76,17 @@ namespace Store.TestConsole
 
             //}
 
-            using (StoreDbContext db = new StoreDbContext())
-            {
-                var r = db.Products.Include(x => x.SalesOrders).Select(x => new
-                {
-                    ProductName = x.ProductName,
-                    Orders = x.SalesOrders.Select(x => x.DateOfSale).ToList()
-                }).OrderBy(x=>x.Orders.Count()).ToList();
+            //using (StoreDbContext db = new StoreDbContext())
+            //{
+            //    var r = db.Products.Include(x => x.SalesOrders).Select(x => new
+            //    {
+            //        ProductName = x.ProductName,
+            //        Orders = x.SalesOrders.Select(x => x.DateOfSale).ToList()
+            //    }).OrderBy(x=>x.Orders.Count()).ToList();
 
-            }
+            //}
 
+            
             //end25.03.2020
             //Repository and Unit of Work
 
