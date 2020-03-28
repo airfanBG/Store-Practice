@@ -30,9 +30,9 @@ namespace Store.TestConsole
             //{
             //    //Query returns anonymous entities
             //    var res = db.SaleOrders
-            //        .Select(x => new { Product = x.Product.ProductName, Price = x.Product.ProductPrice, Quantity = x.Quantity })               
-            //        .GroupBy(x=>x.Product)
-            //        .Select(x=>new {ProductName=x.Key,AllQuantity=x.Sum(x=>x.Quantity) })
+            //        .Select(x => new { Product = x.Product.ProductName, Price = x.Product.ProductPrice, Quantity = x.Quantity })
+            //        .GroupBy(x => x.Product)
+            //        .Select(x => new { ProductName = x.Key, AllQuantity = x.Sum(x => x.Quantity) })
             //        .ToList();
             //}
 
@@ -76,18 +76,60 @@ namespace Store.TestConsole
 
             //}
 
+            //using (StoreDbContext db = new StoreDbContext())
+            //{
+            //    var r = db.Products.Include(x => x.SalesOrders).Select(x => new
+            //    {
+            //        ProductName = x.ProductName,
+            //        Orders = x.SalesOrders.Select(x => x.DateOfSale)
+            //    }).OrderByDescending(x => x.Orders.Count()).ToList();
+
+            //}
+
+
+            //end25.03.2020
+            //start 28.03.2020
+
+            //using (StoreDbContext db = new StoreDbContext())
+            //{
+            //    var res = db.SaleOrders
+            //        .GroupBy(x => x.Product.ProductName)
+            //        .Select(x => new
+            //        {
+            //            ProductName = x.Key,
+
+            //            Total = x.Sum(a => a.Quantity)
+            //        }).OrderByDescending(x=>x.Total).ToList();
+            //}
+
             using (StoreDbContext db = new StoreDbContext())
             {
-                var r = db.Products.Include(x => x.SalesOrders).Select(x => new
-                {
-                    ProductName = x.ProductName,
-                    Orders = x.SalesOrders.Select(x => x.DateOfSale).ToList()
-                }).OrderBy(x => x.Orders.Count()).ToList();
+                var res = db.SaleOrders
+                    .Join(db.Employees, so => so.EmployeeId, e => e.Id,
+                    (so, emp) => new
+                    {
+                        so,
+                        emp
+                    })
+                    .GroupBy(x =>
+                    new
+                    {
+                        id = x.emp.Id
+                    })
+                    .Select(a =>
+                    new
+                    {
+                        IdTest = a.Key.id,
+                        Dep = a.Sum(z => z.so.Quantity)
+                    })
+                    .ToList();
 
             }
 
 
-            //end25.03.2020
+            //end 28.03.2020
+
+
 
             //Repository and Unit of Work
 
