@@ -19,9 +19,20 @@ namespace Store.Web.Controllers
         public IActionResult Index()
         {
             //Automapper library
+            
             var res=MapperConfigurator.Mapper.Map<List<ProductViewModel>>(Context.Products.All());
             
             return View(res);
+        }
+        public IActionResult Edit(string id)
+        {
+            //TODO create logic
+            return View();
+        }
+        public IActionResult Delete(string id)
+        {
+            //TODO create logic
+            return View();
         }
     }
 }

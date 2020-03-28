@@ -1,9 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Store.Models;
 using Store.Models.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -11,14 +15,13 @@ using System.Text;
 
 namespace Store.Data
 {
-    public class StoreDbContext:DbContext
+    public class StoreDbContext:IdentityDbContext<User>
     {
         protected IConfigurationRoot configuration;
         public StoreDbContext()
         {
 
         }
-        public DbSet<User> Users { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Department> Departments { get; set; }
@@ -27,22 +30,36 @@ namespace Store.Data
         public DbSet<Product> Products { get; set; }
         public DbSet<SaleOrder> SaleOrders { get; set; }
 
+   
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //ако искате да добавите някаква дифолтна стойност на конкретно пропърти. Същото е, ако добавите и стойност на самото пропърти (виж Telephone в User)
             //modelBuilder.Entity<User>().Property(x => x.Telephone).HasDefaultValue("000-000-000");
 
             //seed
-            var user1 = new User() { Id = Guid.NewGuid().ToString(), Email = "user1@ba.bg", Password = "very very hashed", CreatedAt = DateTime.Now, Telephone = "222-222-222" };
-            var user2 = new User() { Id = Guid.NewGuid().ToString(), Email = "user2@ba.bg", Password = "very very hashed", CreatedAt = DateTime.Now, Telephone = "443-111-222" };
-            var user3 = new User() { Id = Guid.NewGuid().ToString(), Email = "user3@ba.bg", Password = "very very hashed", CreatedAt = DateTime.Now, Telephone = "443-122-222" };
-            var user4 = new User() { Id = Guid.NewGuid().ToString(), Email = "user4@ba.bg", Password = "very very hashed", CreatedAt = DateTime.Now, Telephone = "443-431-222" };
-            var user5 = new User() { Id = Guid.NewGuid().ToString(), Email = "user5@ba.bg", Password = "very very hashed", CreatedAt = DateTime.Now, Telephone = "443-111-857" };
-            var user6 = new User() { Id = Guid.NewGuid().ToString(), Email = "user6@ba.bg", Password = "very very hashed", CreatedAt = DateTime.Now, Telephone = "443-111-347" };
-            var user7 = new User() { Id = Guid.NewGuid().ToString(), Email = "user7@ba.bg", Password = "very very hashed", CreatedAt = DateTime.Now, Telephone = "443-111-987" };
-            var user8 = new User() { Id = Guid.NewGuid().ToString(), Email = "user8@ba.bg", Password = "very very hashed", CreatedAt = DateTime.Now, Telephone = "443-111-654" };
-            var user9 = new User() { Id = Guid.NewGuid().ToString(), Email = "user9@ba.bg", Password = "very very hashed", CreatedAt = DateTime.Now, Telephone = "443-111-556" };
-            var user10 = new User() { Id = Guid.NewGuid().ToString(), Email = "user10@ba.bg", Password = "very very hashed", CreatedAt = DateTime.Now, Telephone = "443-111-478" };
+           // Debugger.Launch();
+            var user1 = new User() { Id = Guid.NewGuid().ToString(), Email = "user1@ba.bg", NormalizedEmail = "user1@ba.bg".ToUpper(), CreatedAt = DateTime.Now, Telephone = "222-222-222" };
+            var user2 = new User() { Id = Guid.NewGuid().ToString(), Email = "user2@ba.bg", NormalizedEmail = "user2@ba.bg".ToUpper(),  CreatedAt = DateTime.Now, Telephone = "443-111-222" };
+            var user3 = new User() { Id = Guid.NewGuid().ToString(), Email = "user3@ba.bg", NormalizedEmail = "user3@ba.bg".ToUpper(),  CreatedAt = DateTime.Now, Telephone = "443-122-222" };
+            var user4 = new User() { Id = Guid.NewGuid().ToString(), Email = "user4@ba.bg", NormalizedEmail = "user4@ba.bg".ToUpper(),  CreatedAt = DateTime.Now, Telephone = "443-431-222" };
+            var user5 = new User() { Id = Guid.NewGuid().ToString(), Email = "user5@ba.bg", NormalizedEmail = "user5@ba.bg".ToUpper(),  CreatedAt = DateTime.Now, Telephone = "443-111-857" };
+            var user6 = new User() { Id = Guid.NewGuid().ToString(), Email = "user6@ba.bg", NormalizedEmail = "user6@ba.bg".ToUpper(), CreatedAt = DateTime.Now, Telephone = "443-111-347" };
+            var user7 = new User() { Id = Guid.NewGuid().ToString(), Email = "user7@ba.bg", NormalizedEmail = "user7@ba.bg".ToUpper(), CreatedAt = DateTime.Now, Telephone = "443-111-987" };
+            var user8 = new User() { Id = Guid.NewGuid().ToString(), Email = "user8@ba.bg", NormalizedEmail = "user8@ba.bg".ToUpper(), CreatedAt = DateTime.Now, Telephone = "443-111-654" };
+            var user9 = new User() { Id = Guid.NewGuid().ToString(), Email = "user9@ba.bg", NormalizedEmail = "user9@ba.bg".ToUpper(),  CreatedAt = DateTime.Now, Telephone = "443-111-556" };
+            var user10 = new User() { Id = Guid.NewGuid().ToString(), Email = "user10@ba.bg", NormalizedEmail = "user10@ba.bg".ToUpper(), CreatedAt = DateTime.Now, Telephone = "443-111-478" };
+            PasswordHasher<User> passwordHasher = new PasswordHasher<User>();
+            user1.PasswordHash = passwordHasher.HashPassword(user1, "Your-PW1");
+            user2.PasswordHash = passwordHasher.HashPassword(user2, "Your-PW1");
+            user3.PasswordHash = passwordHasher.HashPassword(user3, "Your-PW1");
+            user4.PasswordHash = passwordHasher.HashPassword(user4, "Your-PW1");
+            user5.PasswordHash = passwordHasher.HashPassword(user5, "Your-PW1");
+            user6.PasswordHash = passwordHasher.HashPassword(user6, "Your-PW1");
+            user7.PasswordHash = passwordHasher.HashPassword(user7, "Your-PW1");
+            user8.PasswordHash = passwordHasher.HashPassword(user8, "Your-PW1");
+            user9.PasswordHash = passwordHasher.HashPassword(user9, "Your-PW1");
+            user10.PasswordHash = passwordHasher.HashPassword(user10, "Your-PW1");
+
             var department1 = new Department() { Id = Guid.NewGuid().ToString(), CreatedAt = DateTime.Now, DepartmentName = "Sales" };
             var department2 = new Department() { Id = Guid.NewGuid().ToString(), CreatedAt = DateTime.Now, DepartmentName = "CEO" };
             var department3 = new Department() { Id = Guid.NewGuid().ToString(), CreatedAt = DateTime.Now, DepartmentName = "Warehouse" };
@@ -124,6 +141,8 @@ namespace Store.Data
             var saleOrder13 = new SaleOrder() { Id = Guid.NewGuid().ToString(), CreatedAt = DateTime.Now, CustomerId = customer1.Id.ToString(), DateOfSale = new DateTime(2020, 01, 10), ProductId = product9.Id.ToString(), Quantity = 19, EmployeeId = employee2.Id };
 
             modelBuilder.Entity<SaleOrder>().HasData(saleOrder1, saleOrder2, saleOrder3, saleOrder4, saleOrder5, saleOrder6, saleOrder7, saleOrder8, saleOrder9, saleOrder10, saleOrder11, saleOrder12, saleOrder13);
+
+            base.OnModelCreating(modelBuilder);
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

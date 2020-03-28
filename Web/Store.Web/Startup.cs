@@ -13,6 +13,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Http;
 using Store.Data.Common.Repositories;
+using Store.Models;
+using Store.Data;
 
 namespace Store.Web
 {
@@ -30,9 +32,12 @@ namespace Store.Web
         {
            
             services.AddControllersWithViews();
-          
+
+
+            services.AddScoped<StoreDbContext>();
             services.AddScoped<IStoreContextData, StoreContextData>();
-            services.AddRazorPages();
+            services.AddDefaultIdentity<User>().AddEntityFrameworkStores<StoreDbContext>().AddDefaultUI();
+            services.AddRazorPages().AddRazorRuntimeCompilation();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

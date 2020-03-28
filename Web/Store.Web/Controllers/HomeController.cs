@@ -20,8 +20,8 @@ namespace Store.Web.Controllers
 
         public IActionResult Index()
         {
-            return NotFound();
-            //return View();
+            //return NotFound();
+            return View();
         }
 
         public IActionResult Privacy()
