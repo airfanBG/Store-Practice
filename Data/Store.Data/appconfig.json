@@ -1,6 +1,6 @@
 {
   "ConnectionStrings": {
-    "DefaultConnection": "Serverairfan\\sqlexpress;Database=;Trusted_Connection=True;"
+    "DefaultConnection": "Server=;Database=;Trusted_Connection=True;"
 
   }
 
