@@ -61,10 +61,14 @@ namespace Store.Web.Controllers
                 var res = MapperConfigurator.Mapper.Map<Product>(model);
                 this.Context.Products.Update(res);
                 int status=this.Context.SaveChanges();
-                if (status==1 && isAjaxCall)
+                if (status==1)
                 {
-                    Response.StatusCode =(int) HttpStatusCode.OK;
-                    return Json(JsonConvert.SerializeObject(model));
+                    if (isAjaxCall)
+                    {
+                        Response.StatusCode = (int)HttpStatusCode.OK;
+                        return Json(JsonConvert.SerializeObject(model));
+                    }
+                    return View();
                 }
                 else
                 {
