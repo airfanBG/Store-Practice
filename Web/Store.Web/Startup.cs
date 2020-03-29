@@ -42,7 +42,7 @@ namespace Store.Web
                 .AddEntityFrameworkStores<StoreDbContext>().AddDefaultUI();
             services.AddRazorPages().AddRazorRuntimeCompilation();
 
-            //add this package Microsoft.AspNetCore.Authentication.Facebook to add external login
+            //add this package Microsoft.AspNetCore.Authentication.Facebook to add external login. Note: when get facebook apiId and apiSecret, create json file in main dir of web app.
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = IdentityConstants.ApplicationScheme;
