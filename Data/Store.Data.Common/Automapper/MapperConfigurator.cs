@@ -29,7 +29,7 @@ namespace Store.Data.Common.Automapper
         public MappingProfile()
         {
             CreateMap<Product, ProductViewModel>();
-         
+            CreateMap<ProductViewModel, Product>();
         }
     }
 }

@@ -168,6 +168,7 @@ namespace Store.Data
                 var addedEntityType =(IAuditInfo)entry.Entity;
                 if (entry.State == EntityState.Added)
                 {
+                  
                     addedEntityType.CreatedAt = DateTime.Now;
                 }
                 if (entry.State == EntityState.Modified)

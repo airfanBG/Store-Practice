@@ -50,7 +50,7 @@ namespace Store.Data.Common.Repositories
 
         public int SaveChanges()
         {
-            return this.SaveChanges();
+            return Context.SaveChanges();
         }
         private IRepository<T> GetRepository<T>() where T : class
         {
