@@ -11,23 +11,25 @@ using Store.Data.Common.Repositories;
 using Store.Data.Common.Services;
 using Store.Data.Common.ViewModels;
 using Store.Models;
+using X.PagedList;
 
 namespace Store.Web.Controllers
 {
     public class ProductsController : Controller
     {
         private IStoreContextData Context { get; }
+        private int pageSize = 10;
         public ProductsController(IStoreContextData db)
         {
             Context = db;
         }
-        public IActionResult Index()
+        public IActionResult Index(int? page)
         {
             //Automapper library
             
             var res=MapperConfigurator.Mapper.Map<List<ProductViewModel>>(Context.Products.All());
         
-            return View(res);
+            return View(res.ToPagedList(page ?? 1,pageSize));
         }
         [Authorize(Roles ="Seller, Warehouse")]
         public IActionResult Add(ProductViewModel model)
