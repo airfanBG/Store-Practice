@@ -6,6 +6,7 @@
 #migrations and app.json settings
 Migrations/
 appconfig.json
+appsettings.json
 
 # User-specific files
 *.rsuser

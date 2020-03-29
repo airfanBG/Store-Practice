@@ -36,8 +36,25 @@ namespace Store.Web
 
             services.AddScoped<StoreDbContext>();
             services.AddScoped<IStoreContextData, StoreContextData>();
-            services.AddDefaultIdentity<User>().AddEntityFrameworkStores<StoreDbContext>().AddDefaultUI();
+            services.AddDefaultIdentity<User>()
+                .AddRoles<IdentityRole>()
+                .AddRoleManager<RoleManager<IdentityRole>>()
+                .AddEntityFrameworkStores<StoreDbContext>().AddDefaultUI();
             services.AddRazorPages().AddRazorRuntimeCompilation();
+
+            //add this package Microsoft.AspNetCore.Authentication.Facebook to add external login
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = IdentityConstants.ApplicationScheme;
+                options.DefaultChallengeScheme = IdentityConstants.ApplicationScheme;
+                options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
+            }).AddFacebook(facebookOptions =>
+            {
+                facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
+                facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+            });
+            services.AddAuthorization();
+            services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
