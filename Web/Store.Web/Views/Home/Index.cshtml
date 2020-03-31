@@ -36,16 +36,42 @@
                     <p class="contact-action"><i class="fa fa-phone-square"></i>IN CASE OF ANY QUESTIONS, CALL THIS NUMBER: <strong>+565 975 658</strong></p>
                 </div>
                 <div class="col-md-3 clearfix">
+                    @*<div class="container">
+                        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Store.Web</a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                           
+                            <ul class="navbar-nav flex-grow-1">
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index">Products</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>*@
+                  
                     <ul class="login-cart">
-                        
                         <li>
+                            <partial name="_LoginPartial" />
+                        </li>
+                        <li>
+
                             <div class="cart dropdown">
+
                                 <a data-toggle="dropdown" href="#"><i class="fa fa-shopping-cart"></i>Cart(1)</a>
                                 <div class="dropdown-menu dropup">
                                     <span class="caret"></span>
                                     <ul class="media-list">
                                         <li class="media">
-                                           
+
                                             <img src="~/images/product-item.jpg" />
                                             <div class="media-body">
                                                 <h6>
