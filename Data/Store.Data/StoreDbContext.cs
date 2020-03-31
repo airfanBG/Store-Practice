@@ -146,6 +146,7 @@ namespace Store.Data
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            //if you don't have json config file must add it in your project
             configuration = new ConfigurationBuilder().SetBasePath(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)).AddJsonFile("appconfig.json").Build();
             optionsBuilder.UseSqlServer(this.configuration.GetConnectionString("DefaultConnection"));
         }
