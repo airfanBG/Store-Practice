@@ -210,4 +210,17 @@
         });
 
     </script>
+<script>
+    $("body").on("click", "#delete", function () {
+        var getId = $(this).attr("data-id");
+        $.ajax({
+            method: "post",
+            url: "/products/delete",
+            data: { id: getId },
+            success: function (status) {
+                alert(status);
+            }
+        });
+    });
+</script>
 }

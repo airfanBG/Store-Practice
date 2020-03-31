@@ -98,8 +98,27 @@ namespace Store.Web.Controllers
         }
         public IActionResult Delete(string id)
         {
-            //TODO create logic
-            return View();
+            var item = this.Context.Products.All(x => x.Id == id).SingleOrDefault();
+            bool isAjaxCall = Request.Headers["x-requested-with"] == "XMLHttpRequest";
+            this.Context.Products.Delete(item);
+            var res=this.Context.SaveChanges();
+            if (res==1)
+            {
+                if (isAjaxCall)
+                {
+                   
+                    return Json(Response.StatusCode = (int)HttpStatusCode.OK);
+                }
+                return View();
+            }
+            else
+            {
+                if (isAjaxCall)
+                {
+                    return Json(Response.StatusCode = (int)HttpStatusCode.BadRequest);
+                }
+            }
+            return StatusCode(400);
         }
     }
 }

@@ -24,4 +24,10 @@
     <ProjectReference Include="..\Store.Models\Store.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="appconfig.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
