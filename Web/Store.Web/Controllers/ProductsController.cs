@@ -26,7 +26,6 @@ namespace Store.Web.Controllers
         public IActionResult Index(int? page)
         {
             //Automapper library
-            
             var res=MapperConfigurator.Mapper.Map<List<ProductViewModel>>(Context.Products.All());
         
             return View(res.ToPagedList(page ?? 1,pageSize));
@@ -119,6 +118,19 @@ namespace Store.Web.Controllers
                 }
             }
             return StatusCode(400);
+        }
+        public IActionResult GetProductInfo(string id)
+        {
+            if (!string.IsNullOrEmpty(id))
+            {
+                using (Context)
+                {
+                    var product = Context.Products.All(x => x.Id == id).SingleOrDefault();
+                    var res = MapperConfigurator.Mapper.Map<ProductViewModel>(product);
+                    return View(res);
+                }
+            }
+            return View("/index");
         }
     }
 }

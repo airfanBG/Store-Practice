@@ -15,4 +15,10 @@
     <ProjectReference Include="..\Store.Models\Store.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="servicesconfigurator.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

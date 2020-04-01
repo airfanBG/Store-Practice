@@ -48,25 +48,30 @@
             }
             @foreach (var product in Model)
             {
-                <tr id="@product.Id">
-                    <th scope="row">@count</th>
-                    <td id="tdProductName">@product.ProductName</td>
-                    <td id="tdDescription">@product.Description</td>
-                    @if (User.Identity.IsAuthenticated && User.IsInRole("Seller"))
-                    {
-                        <td id="tdQuantity">@product.CurrentQuantity.ToString()</td>
-                    }
-                    <td id="tdProductPrice">@product.ProductPrice.ToString()</td>
-                    @if (User.Identity.IsAuthenticated && User.IsInRole("Seller"))
-                    {
+            <tr id="@product.Id">
+                <th scope="row">@count</th>
+                <td id="tdProductName">@product.ProductName</td>
+                <td id="tdDescription">@product.Description</td>
+                @if (User.Identity.IsAuthenticated && User.IsInRole("Seller"))
+                {
+                    <td id="tdQuantity">@product.CurrentQuantity.ToString()</td>
+                }
+                <td id="tdProductPrice">@product.ProductPrice.ToString()</td>
+                @if (User.Identity.IsAuthenticated && User.IsInRole("Seller"))
+                {
 
-                        <td>
-                            <a id="edit" href="#" data-id="@product.Id"><div class="btn btn-info">Edit</div></a>
-                            <a id="delete" href="#" data-id="@product.Id"><div class="btn btn-danger">Delete</div></a>
-                        </td>
-                    }
-
-                </tr>
+                    <td>
+                        <a id="edit" href="#" data-id="@product.Id"><div class="btn btn-warning">Edit</div></a>
+                        <a id="delete" href="#" data-id="@product.Id"><div class="btn btn-danger">Delete</div></a>
+                    </td>
+                }
+                <td>
+                    <form asp-action="GetProductInfo" asp-controller="Products">
+                        <button class="btn btn-info" type="submit"  name="id" value="@product.Id">Info</button>
+                    </form>
+                  
+                </td>
+            </tr>
 
                 count++;
             }
@@ -104,6 +109,10 @@
                     <div id="mPrc" class="form-group">
                         <label for="price">Price</label>
                         <input type="number" min="1" step="any" class="form-control" id="mdprice" name="ProductPrice" placeholder="Price">
+                    </div>
+                    <div id="pictures" class="form-group">
+                        <label for="pictures">Pictures</label>
+                        <input type="image" class="form-control" id="mdImages" name="Images" placeholder="Images">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

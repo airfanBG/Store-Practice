@@ -76,7 +76,7 @@ namespace Store.Data
             var customer4 = new Customer() { Id = Guid.NewGuid().ToString(), CreatedAt = DateTime.Now, AccountNumber = "618299" };
             var customer5 = new Customer() { Id = Guid.NewGuid().ToString(), CreatedAt = DateTime.Now, AccountNumber = "091234" };
 
-            var product1 = new Product() { Id = Guid.NewGuid().ToString(), CreatedAt = DateTime.Now, Description = "product1", ProductName = "Product1", ProductPrice = 10 };
+            var product1 = new Product() { Id = Guid.NewGuid().ToString(), CreatedAt = DateTime.Now, Description = "product1", ProductName = "Product1", ProductPrice = 10};
             var product2 = new Product() { Id = Guid.NewGuid().ToString(), CreatedAt = DateTime.Now, Description = "product2", ProductName = "Product2", ProductPrice = 5 };
             var product3 = new Product() { Id = Guid.NewGuid().ToString(), CreatedAt = DateTime.Now, Description = "product3", ProductName = "Product3", ProductPrice = 1 };
             var product4 = new Product() { Id = Guid.NewGuid().ToString(), CreatedAt = DateTime.Now, Description = "product4", ProductName = "Product4", ProductPrice = 45 };

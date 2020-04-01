@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
@@ -19,5 +20,7 @@ namespace Store.Data.Common.ViewModels
 
         [Required]
         public int CurrentQuantity { get; set; }
+
+        public IFormFile Images { get; set; }
     }
 }

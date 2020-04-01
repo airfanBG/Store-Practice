@@ -5,6 +5,10 @@
     <UserSecretsId>aspnet-Store.Web-CBE1BBD5-69F5-4085-8C91-0F774DFF1E3D</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Content Remove="libman.json" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="3.1.3" />

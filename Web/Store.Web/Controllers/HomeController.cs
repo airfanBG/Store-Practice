@@ -27,17 +27,29 @@ namespace Store.Web.Controllers
             //return NotFound();
             return View();
         }
-        public IActionResult GetUnfinished(string id)
+        public IActionResult GetUnfinishedCount(string id)
         {
             if (!string.IsNullOrEmpty(id))
             {
                 OrdersStatistics ordersStatistics = new OrdersStatistics(this.Context);
-                var res = ordersStatistics.GetNotFinishedOrdersBySeller(id);
+                var res = ordersStatistics.GetNotFinishedOrdersCountBySeller(id);
                 return Content(res.ToString());
             }
           
             return Content("0");
         }
+        public IActionResult GetUnfinishedOrders(string id)
+        {
+            if (!string.IsNullOrEmpty(id))
+            {
+                OrdersStatistics ordersStatistics = new OrdersStatistics(this.Context);
+                var res = ordersStatistics.GetNotFinishedOrdersCountBySeller(id);
+                return Content(res.ToString());
+            }
+
+            return Content("0");
+        }
+
         public IActionResult Privacy()
         {
             return View();

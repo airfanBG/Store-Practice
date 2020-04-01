@@ -550,7 +550,7 @@
           
             $.ajax({
                 method: "get",
-                url: "/home/GetUnfinished",
+                url: "/home/GetUnfinishedCount",
                 data: { id: userId },
                 success: function (data) {
                     $("#unfinished").text(data);
