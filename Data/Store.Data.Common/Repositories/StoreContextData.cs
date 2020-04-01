@@ -33,6 +33,27 @@ namespace Store.Data.Common.Repositories
                 return this.GetRepository<Product>();
             }
         }
+        public IRepository<SaleOrder> SaleOrders
+        {
+            get
+            {
+                return this.GetRepository<SaleOrder>();
+            }
+        }
+        public IRepository<Employee> Employees
+        {
+            get
+            {
+                return this.GetRepository<Employee>();
+            }
+        }
+        public IRepository<User> Users
+        {
+            get
+            {
+                return this.GetRepository<User>();
+            }
+        }
         public void Dispose()
         {
             this.Dispose(true);

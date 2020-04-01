@@ -12,7 +12,7 @@ namespace Store.Data.Common.Repositories
     public class Repository<T> : IRepository<T> where T : class
     { 
         public DbContext Context { get; set; }
-        public DbSet<T> DbSet { get; set; }
+        private DbSet<T> DbSet { get; set; }
 
         public Repository(DbContext context)
         {
@@ -44,6 +44,7 @@ namespace Store.Data.Common.Repositories
             {
                 return DbSet;
             }
+            
             return DbSet.Where(func).AsQueryable();
 
         }
@@ -104,6 +105,11 @@ namespace Store.Data.Common.Repositories
                     Console.WriteLine(e.Message);
                 }
             }
+        }
+
+        public DbSet<T> GetDbSet()
+        {
+            return this.DbSet;
         }
     }
 }

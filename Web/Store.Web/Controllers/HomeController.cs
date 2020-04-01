@@ -5,17 +5,21 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Store.Data.Common.Repositories;
 using Store.Web.Models;
+using Store.Web.Services;
 
 namespace Store.Web.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private IStoreContextData Context { get; }
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IStoreContextData data)
         {
             _logger = logger;
+            Context = data;
         }
 
         public IActionResult Index()
@@ -23,7 +27,17 @@ namespace Store.Web.Controllers
             //return NotFound();
             return View();
         }
-
+        public IActionResult GetUnfinished(string id)
+        {
+            if (!string.IsNullOrEmpty(id))
+            {
+                OrdersStatistics ordersStatistics = new OrdersStatistics(this.Context);
+                var res = ordersStatistics.GetNotFinishedOrdersBySeller(id);
+                return Content(res.ToString());
+            }
+          
+            return Content("0");
+        }
         public IActionResult Privacy()
         {
             return View();

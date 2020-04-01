@@ -1,4 +1,5 @@
-﻿@{
+﻿@using System.Security.Claims
+@{
     ViewData["Title"] = "Home"; 
 
 }
@@ -9,8 +10,7 @@
     <link href='https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:400,700' rel='stylesheet' type='text/css'>
 
     <!-- Css -->
-
-
+   
     <link href="~/css/nivo-slider.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/css/owl.carousel.css">
     <link rel="stylesheet" href="~/css/owl.theme.css">
@@ -46,24 +46,46 @@
                         <li>
 
                             <div class="cart dropdown">
+                                @if (User.IsInRole("Customer"))
+                                {
+                                    <a data-toggle="dropdown" href="#"><i class="fa fa-shopping-cart"></i>Cart(1)</a>
+                                    <div class="dropdown-menu dropup">
+                                        <span class="caret"></span>
+                                        <ul class="media-list">
+                                            <li class="media">
 
-                                <a data-toggle="dropdown" href="#"><i class="fa fa-shopping-cart"></i>Cart(1)</a>
-                                <div class="dropdown-menu dropup">
-                                    <span class="caret"></span>
-                                    <ul class="media-list">
-                                        <li class="media">
+                                                <img src="~/images/product-item.jpg" />
+                                                <div class="media-body">
+                                                    <h6>
+                                                        Italian Sauce
+                                                        <span>$250</span>
+                                                    </h6>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <button class="btn btn-primary btn-sm">Checkout</button>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <a data-toggle="dropdown" href="#"><i class="fa fa-shopping-cart"></i>Unfinished orders <span id="unfinished"></span></a>
+                                    <div class="dropdown-menu dropup">
+                                        <span class="caret"></span>
+                                        <ul class="media-list">
+                                            <li class="media">
 
-                                            <img src="~/images/product-item.jpg" />
-                                            <div class="media-body">
-                                                <h6>
-                                                    Italian Sauce
-                                                    <span>$250</span>
-                                                </h6>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                    <button class="btn btn-primary btn-sm">Checkout</button>
-                                </div>
+                                                <img src="~/images/product-item.jpg" />
+                                                <div class="media-body">
+                                                    <h6>
+                                                        Italian Sauce
+                                                        <span>$250</span>
+                                                    </h6>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <button class="btn btn-primary btn-sm">Checkout</button>
+                                    </div>
+                                }
                             </div>
                         </li>
                     </ul>
@@ -521,3 +543,19 @@
     </footer> <!-- End Of Footer -->
 
     <a id="back-top" href="#"></a>
+@section Scripts{ 
+    <script>
+          var userId='@User.FindFirst(ClaimTypes.NameIdentifier).Value';
+        $(document).ready(function () {
+          
+            $.ajax({
+                method: "get",
+                url: "/home/GetUnfinished",
+                data: { id: userId },
+                success: function (data) {
+                    $("#unfinished").text(data);
+                    }
+            });
+        });
+    </script>
+}

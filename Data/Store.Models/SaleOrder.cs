@@ -13,6 +13,9 @@
         [MaxLength(200)]
         public string Note { get; set; }
 
+        public bool InternetOrdered { get; set; }
+        public bool Finished { get; set; }
+
         public string CustomerId { get; set; }
         public virtual Customer Customer { get; set; }
 
@@ -20,5 +23,6 @@
         public virtual Product Product { get; set; }
 
         public string EmployeeId { get; set; }
+        public Employee Employee { get; set; }
     }
 }

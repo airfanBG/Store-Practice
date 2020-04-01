@@ -10,7 +10,9 @@ namespace Store.Data.Common.Repositories
     {
         DbContext Context { get; }
         public IRepository<Product> Products { get; }
-      
+        public IRepository<SaleOrder> SaleOrders { get; }
+        public IRepository<User> Users { get; }
+        public IRepository<Employee> Employees { get; }
         int SaveChanges();
     }
 }

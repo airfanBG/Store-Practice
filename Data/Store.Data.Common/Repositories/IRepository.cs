@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,7 @@ namespace Store.Data.Common.Repositories
         where TEntity : class
     {
         IQueryable<TEntity> All(Func<TEntity, bool> func = null);
-
+        DbSet<TEntity> GetDbSet();
         IQueryable<TEntity> AllAsNoTracking();
 
         void Add(TEntity entity);

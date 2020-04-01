@@ -2,6 +2,7 @@
 using Store.Data;
 using Store.Data.Common.Repositories;
 using Store.Models;
+using Store.Web.Services;
 using System;
 using System.Data.SqlClient;
 using System.Linq;
@@ -12,7 +13,10 @@ namespace Store.TestConsole
     {
         static void Main(string[] args)
         {
-
+            //01.04.2020
+            OrdersStatistics os = new OrdersStatistics(new StoreContextData());
+            var res = os.GetNotFinishedOrdersBySeller("df54f312-634a-409d-9c6f-117d3993dc7a");
+            //ent 01.04.2020
             //EF using 23.03.2020 https://docs.microsoft.com/en-us/ef/core/querying/
             //https://docs.microsoft.com/en-us/ef/core/querying/client-eval#client-evaluation-in-the-top-level-projection
             //using (StoreDbContext db=new StoreDbContext())
@@ -102,29 +106,29 @@ namespace Store.TestConsole
             //        }).OrderByDescending(x=>x.Total).ToList();
             //}
 
-            using (StoreDbContext db = new StoreDbContext())
-            {
-                var res = db.SaleOrders
-                    .Join(db.Employees, so => so.EmployeeId, e => e.Id,
-                    (so, emp) => new
-                    {
-                        so,
-                        emp
-                    })
-                    .GroupBy(x =>
-                    new
-                    {
-                        id = x.emp.Id
-                    })
-                    .Select(a =>
-                    new
-                    {
-                        IdTest = a.Key.id,
-                        Dep = a.Sum(z => z.so.Quantity)
-                    })
-                    .ToList();
+            //using (StoreDbContext db = new StoreDbContext())
+            //{
+            //    var res = db.SaleOrders
+            //        .Join(db.Employees, so => so.EmployeeId, e => e.Id,
+            //        (so, emp) => new
+            //        {
+            //            so,
+            //            emp
+            //        })
+            //        .GroupBy(x =>
+            //        new
+            //        {
+            //            id = x.emp.Id
+            //        })
+            //        .Select(a =>
+            //        new
+            //        {
+            //            IdTest = a.Key.id,
+            //            Dep = a.Sum(z => z.so.Quantity)
+            //        })
+            //        .ToList();
 
-            }
+            //}
 
 
             //end 28.03.2020

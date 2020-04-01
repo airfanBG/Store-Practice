@@ -10,6 +10,7 @@
         public Employee()
         {
             EmployeeCustomers = new HashSet<EmployeeCustomers>();
+            SaleOrders = new HashSet<SaleOrder>();
         }
         [Column("Employee_Number")]
         public string EmployeeNumber { get; set; }
@@ -18,5 +19,6 @@
         public string DepartmentId { get; set; }
         public virtual Department Department { get; set; }
         public ICollection<EmployeeCustomers> EmployeeCustomers { get; set; }
+        public ICollection<SaleOrder> SaleOrders { get; set; }
     }
 }
