@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -130,7 +131,44 @@ namespace Store.Web.Controllers
                     return View(res);
                 }
             }
-            return View("/index");
+            return Redirect("/Products/Index");
+        }
+        public IActionResult CreateOrder(OrderViewModel model)
+        {
+            var user = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            SaleOrder so = new SaleOrder()
+            {
+               
+                DateOfSale = DateTime.Now,
+                Finished = true,
+                InternetOrdered = true,
+                ProductId = model.ProductId,
+                Quantity = model.Quantity,
+                Total= model.Quantity *model.Price
+            };
+            using (Context)
+            {
+               
+                try
+                {
+                    var customer=this.Context.Customers.All(x => x.Id == user).SingleOrDefault();
+                    so.Customer = customer;
+                    this.Context.SaleOrders.Add(so);
+
+                    var res=Context.SaveChanges();
+                    if (res==1)
+                    {
+                        return Redirect("/Products/Index");
+                    }
+                    return Redirect("/Home/Error");
+                }
+                catch (Exception e)
+                {
+
+                    Console.WriteLine(e.Message);
+                }
+            }
+            return View("/Home");
         }
     }
 }

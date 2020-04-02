@@ -47,6 +47,13 @@ namespace Store.Data.Common.Repositories
                 return this.GetRepository<Employee>();
             }
         }
+        public IRepository<Customer> Customers
+        {
+            get
+            {
+                return this.GetRepository<Customer>();
+            }
+        }
         public IRepository<User> Users
         {
             get

@@ -13,6 +13,7 @@ namespace Store.Data.Common.Repositories
         public IRepository<SaleOrder> SaleOrders { get; }
         public IRepository<User> Users { get; }
         public IRepository<Employee> Employees { get; }
+        public IRepository<Customer> Customers { get; }
         int SaveChanges();
     }
 }

@@ -15,7 +15,7 @@
 
         public bool InternetOrdered { get; set; }
         public bool Finished { get; set; }
-
+        public double Total { get; set; }
         public string CustomerId { get; set; }
         public virtual Customer Customer { get; set; }
 
